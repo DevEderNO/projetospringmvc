@@ -67,7 +67,7 @@ public class SerieController {
 			serieRepository.save(serie);
 			redirectAttributes.addFlashAttribute("mensagem","Alteração realizada com sucesso");
 		}
-		return new ModelAndView("redirect:/series/novo");
+		return new ModelAndView("redirect:/series");
 	}
 	
 	@GetMapping

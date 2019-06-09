@@ -19,9 +19,14 @@
 	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
 	crossorigin="anonymous"></script>
 </head>
+
 <body class="jumbotron">
 
-	<h4><a th:href="@{/generos}"> Lista </a></h4>
+	
+
+	<h4>
+		<a th:href="@{/generos}"> Lista </a>
+	</h4>
 
 	<h1 class="form-group">Cadastro de genero</h1>
 
@@ -30,18 +35,20 @@
 
 			<!-- Message Error -->
 			<div th:if="${#fields.hasAnyErrors()}">
-				<div th:each="erros : ${#fields.detailedErrors()}" class="alert alert-danger">
+				<div th:each="erros : ${#fields.detailedErrors()}"
+					class="alert alert-danger">
 					<span th:text="${erros.message}"></span>
 				</div>
 			</div>
 
 			<!-- Message Success -->
-			<div th:if="${!#strings.isEmpty(mensagem)}" class="alert alert-success">
+			<div th:if="${!#strings.isEmpty(mensagem)}"
+				class="alert alert-success">
 				<span th:text="${mensagem}"></span>
 			</div>
-			
-			<input type="hidden" th:field="*{id}"/>
-			
+
+			<input type="hidden" th:field="*{id}" />
+
 			<div class="form-group">
 				<label for="nome">Titulo:</label> <input id="nome" type="text"
 					th:field="*{nome}" class="form-control" />

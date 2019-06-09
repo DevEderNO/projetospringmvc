@@ -21,65 +21,101 @@
 </head>
 <body class="jumbotron">
 
-	<h4><a th:href="@{/series}"> Lista </a></h4>
+	<header id="header" class="">
+		<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+			<a class="navbar-brand" href="#">Loja Web</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarsExampleDefault"
+				aria-controls="navbarsExampleDefault" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
 
-	<h1 class="form-group">Cadastro de serie</h1>
-
-	<div>
-		<form action="/series" method="POST" th:object="${serie}">
-
-			<!-- Message Error -->
-			<div th:if="${#fields.hasAnyErrors()}">
-				<div th:each="erros : ${#fields.detailedErrors()}" class="alert alert-danger">
-					<span th:text="${erros.message}"></span>
-				</div>
+			<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle" href="#" id="dropdown01"
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Series</a>
+						<div class="dropdown-menu" aria-labelledby="dropdown01">
+							<a class="dropdown-item" th:href="@{/series}">Lista de Series</a>
+							<a class="dropdown-item" th:href="@{/series/novo}">Cadastro
+								de Series</a>
+						</div></li>
+				</ul>
+				<form class="form-inline my-2 my-lg-0">
+					<input class="form-control mr-sm-2" type="text"
+						placeholder="Search" aria-label="Search">
+					<button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+				</form>
 			</div>
+		</nav>
+	</header>
 
-			<!-- Message Success -->
-			<div th:if="${!#strings.isEmpty(mensagem)}" class="alert alert-success">
-				<span th:text="${mensagem}"></span>
-			</div>
-			
-			<input type="hidden" th:field="*{id}"/>
-			
-			<div class="form-group">
-				<label for="titulo">Titulo:</label> <input id="titulo" type="text"
-					th:field="*{titulo}" class="form-control" />
-			</div>
-			<div class="form-group">
-				<label for="comentario">Comentário:</label> <input id="comentario"
-					type="text" th:field="*{comentario}" class="form-control" />
-			</div>
+	<center>
+		<h1>Cadastro de serie</h1>
+	</center>
 
-			<div class="form-group">
-				<label for="dataCadastro">Data de Cadastro:</label> <input
-					id="dataCadastro" type="date" th:field="*{dataCadastro}"
-					class="form-control" width="100" />
-			</div>
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<form action="/series" method="POST" th:object="${serie}">
 
-			<div class="form-group">
-				<label for="valor">Valor:</label> <input id="valor" type="number"
-					th:field="*{valor}" class="form-control" />
-			</div>
+					<!-- Message Error -->
+					<div th:if="${#fields.hasAnyErrors()}">
+						<div th:each="erros : ${#fields.detailedErrors()}"
+							class="alert alert-danger">
+							<span th:text="${erros.message}"></span>
+						</div>
+					</div>
 
-			<div class="form-group">
-				<label for="genero">Genero:</label> <select name="genero"
-					id="genero" th:field="*{genero}" class="form-control">
-					<option th:each="genero : ${todosGeneros}" th:text="${genero.nome}"
-						th:value="${genero.id}"></option>
-				</select>
-			</div>
+					<!-- Message Success -->
+					<div th:if="${!#strings.isEmpty(mensagem)}"
+						class="alert alert-success">
+						<span th:text="${mensagem}"></span>
+					</div>
 
-			<div class="form-group">
-				<label for="status">Status:</label> <select name="status"
-					id="status" th:field="*{status}" class="form-control">
-					<option th:each="status : ${todosStatus}"
-						th:text="${status.descricao}" th:value="${status}"></option>
-				</select>
-			</div>
+					<input type="hidden" th:field="*{id}" />
 
-			<button type="submit" class="btn btn-primary">Salvar</button>
-		</form>
+					<div class="form-group col">
+						<label for="titulo">Titulo:</label> <input id="titulo" type="text"
+							th:field="*{titulo}" class="form-control" />
+					</div>
+					<div class="form-group col">
+						<label for="comentario">Comentário:</label> <input id="comentario"
+							type="text" th:field="*{comentario}" class="form-control" />
+					</div>
+
+					<div class="form-group col-md-3">
+						<label for="dataCadastro">Data de Cadastro:</label> 
+						<input id="dataCadastro" type="date" th:field="*{dataCadastro}" class="form-control" width="100" />
+					</div>
+
+					<div class="form-group col-md-3">
+						<label for="valor">Valor:</label> <input id="valor" type="number" 
+							th:field="*{valor}" class="form-control" />
+					</div>
+
+					<div class="form-group col-md-3">
+						<label for="genero">Genero:</label> <select name="genero"
+							id="genero" th:field="*{genero}" class="form-control">
+							<option th:each="genero : ${todosGeneros}"
+								th:text="${genero.nome}" th:value="${genero.id}"></option>
+						</select>
+					</div>
+
+					<div class="form-group col-md-3">
+						<label for="status">Status:</label> <select name="status"
+							id="status" th:field="*{status}" class="form-control">
+							<option th:each="status : ${todosStatus}"
+								th:text="${status.descricao}" th:value="${status}"></option>
+						</select>
+					</div>
+					<div class="form-group col-md-2">
+						<button type="submit" class="btn btn-primary btn-block">Salvar</button>
+					</div>
+				</form>
+			</div>
+		</div>
 	</div>
 </body>
 </html>
