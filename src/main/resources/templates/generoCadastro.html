@@ -4,13 +4,12 @@
 	  layout:decorate="~{layoutPadrao}">
 
 <head>
-	<meta charset="UTF-8">
-	<title>Cadastro de Genero</title>
+	<title>Cadastro de Gênero</title>
 </head>
 
 <body>
 	<section layout:fragment="conteudo">
-		<h1 class="form-group text-center">Cadastro de Genero</h1>
+		<h1 class="form-group text-center">Cadastro de Gênero</h1>
 		<div>
 			<form action="/generos" method="POST" th:object="${genero}">
 
@@ -20,7 +19,7 @@
 				<input type="hidden" th:field="*{id}" />
 	
 				<div class="form-group">
-					<label for="nome">Titulo:</label> <input id="nome" type="text"
+					<label for="nome">Título:</label> <input id="nome" type="text"
 						th:field="*{nome}" class="form-control" />
 				</div>
 	

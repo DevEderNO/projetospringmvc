@@ -3,27 +3,22 @@
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	  layout:decorate="~{layoutPadrao}">
 <head>
-<meta charset="UTF-8">
-<title>Cadastro de genero</title>
+<title>Cadastro de gênero</title>
 </head>
 <body>
-
-	<h4><a th:href="@{generos/novo}"> Cadastro </a></h4>
-	
-	
 	<section layout:fragment="conteudo">
-		<h1 class="text-center">Lista de Generos</h1>
+		<h1 class="text-center">Lista de Gêneros</h1>
 		<div>
-			<table class="table">
+			<table class="table w-50" align="center">
 				<thead class="thead-dark">
-					<tr>
+					<tr align="center">
 						<th scope="col">Id</th>
 						<th scope="col">Genero</th>
 						<th scope="col">Ação</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="genero : ${generos}">
+					<tr th:each="genero : ${generos}" align="center">
 						<td th:text="${genero.id}"></td>
 						<td th:text="${genero.nome}"></td>
 						<td>
@@ -32,6 +27,9 @@
 							onclick="return confirm('Deseja realmente excluir este item ?')">Excluir</a>
 						</td>
 						<td></td>
+					</tr>
+					<tr th:if="${#lists.isEmpty(generos)}">
+						<td  colspan="3" align="center">Nenhum genero cadastrado!</td>
 					</tr>
 				</tbody>
 			</table>

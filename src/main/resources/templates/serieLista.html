@@ -4,25 +4,23 @@
 	  layout:decorate="~{layoutPadrao}">
 
 <head>
-	<meta charset="UTF-8">
-	<title>Cadastro de serie</title>
+	<title>Cadastro de série</title>
 </head>
 
 <body>
-
 	<section layout:fragment="conteudo">
-		<h1 align="center">Lista de Series</h1>
+		<h1 align="center">Lista de Séries</h1>
 
 		<div>
 			<table class="table">
 				<thead class="thead-dark">
 					<tr>
 						<th scope="col">Id</th>
-						<th scope="col">Titulo</th>
+						<th scope="col">Título</th>
 						<th scope="col">Comantario</th>
 						<th scope="col">Data de cadastro</th>
 						<th scope="col">Valor</th>
-						<th scope="col">Genero</th>
+						<th scope="col">Gênero</th>
 						<th scope="col">Status</th>
 						<th scope="col">Ação</th>
 					</tr>
@@ -39,7 +37,10 @@
 						<td><a class="btn btn-primary"
 							th:href="@{series/editar/{id}(id=${serie.id})}">Editar</a> <a
 							class="btn btn-danger"
-							th:href="@{series/excluir/{id}(id=${serie.id})}">Excluir</a></td>
+							th:href="@{series/excluir/{id}(id=${serie.id})}" onclick="return confirm('Deseja realmente excluir este item')">Excluir</a></td>
+					</tr>
+					<tr th:if="${#lists.isEmpty(series)}">
+						<td colspan="8" align="center">Nenhuma serie cadastrada!</td>
 					</tr>
 				</tbody>
 			</table>
