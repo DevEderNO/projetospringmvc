@@ -1,78 +1,27 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layoutPadrao}">
+
 <head>
-<meta charset="UTF-8">
-<title>Cadastro de serie</title>
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-	crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-	crossorigin="anonymous"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-	integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-	crossorigin="anonymous"></script>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-	crossorigin="anonymous"></script>
+	<meta charset="UTF-8">
+	<title>Cadastro de serie</title>
 </head>
+
 <body class="jumbotron">
 
-	<header id="header" class="">
-		<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-			<a class="navbar-brand" href="#">Loja Web</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse"
-				data-target="#navbarsExampleDefault"
-				aria-controls="navbarsExampleDefault" aria-expanded="false"
-				aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
+	<section layout:fragment="conteudo">
+		<center>
+			<h1>Cadastro de serie</h1>
+		</center>
 
-			<div class="collapse navbar-collapse" id="navbarsExampleDefault">
-				<ul class="navbar-nav mr-auto">
-					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" href="#" id="dropdown01"
-						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Series</a>
-						<div class="dropdown-menu" aria-labelledby="dropdown01">
-							<a class="dropdown-item" th:href="@{/series}">Lista de Series</a>
-							<a class="dropdown-item" th:href="@{/series/novo}">Cadastro
-								de Series</a>
-						</div></li>
-				</ul>
-				<form class="form-inline my-2 my-lg-0">
-					<input class="form-control mr-sm-2" type="text"
-						placeholder="Search" aria-label="Search">
-					<button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-				</form>
-			</div>
-		</nav>
-	</header>
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<form action="/series" method="POST" th:object="${serie}">
 
-	<center>
-		<h1>Cadastro de serie</h1>
-	</center>
-
-	<div class="container">
-		<div class="row">
-			<div class="col">
-				<form action="/series" method="POST" th:object="${serie}">
-
-					<!-- Message Error -->
-					<div th:if="${#fields.hasAnyErrors()}">
-						<div th:each="erros : ${#fields.detailedErrors()}"
-							class="alert alert-danger">
-							<span th:text="${erros.message}"></span>
-						</div>
-					</div>
-
-					<!-- Message Success -->
-					<div th:if="${!#strings.isEmpty(mensagem)}"
-						class="alert alert-success">
-						<span th:text="${mensagem}"></span>
-					</div>
+					<div th:replace="mensagemGeral"></div>
+					<div th:replace="mensagemErro"></div>
 
 					<input type="hidden" th:field="*{id}" />
 
@@ -91,12 +40,13 @@
 					</div>
 
 					<div class="form-group col-md-3">
-						<label for="valor">Valor:</label> <input id="valor" type="number" 
+						<label for="valor">Valor:</label> <input id="valor" type="text" pattern="[0-9]"
 							th:field="*{valor}" class="form-control" />
 					</div>
 
 					<div class="form-group col-md-3">
-						<label for="genero">Genero:</label> <select name="genero"
+						<label for="genero">Genero:</label> 
+						<select name="genero"
 							id="genero" th:field="*{genero}" class="form-control">
 							<option th:each="genero : ${todosGeneros}"
 								th:text="${genero.nome}" th:value="${genero.id}"></option>
@@ -116,6 +66,6 @@
 				</form>
 			</div>
 		</div>
-	</div>
+	</section>
 </body>
 </html>

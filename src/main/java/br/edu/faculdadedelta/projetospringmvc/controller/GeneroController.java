@@ -3,7 +3,6 @@ package br.edu.faculdadedelta.projetospringmvc.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,19 +13,22 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.edu.faculdadedelta.projetospringmvc.modelo.Genero;
-import br.edu.faculdadedelta.projetospringmvc.repository.GeneroRepository;
+import br.edu.faculdadedelta.projetospringmvc.service.GeneroService;
 
 @Controller
 @RequestMapping("/generos")
 public class GeneroController {
 
+	private static final String REDIRECT = "redirect:/";
+	private static final String GENEROS = "generos";
+	private static final String NOVO = "/novo";
 	private final static String GENERO_CADASTRO = "generoCadastro";
 	private final static String GENERO_LISTA = "generoLista";
 	
 	@Autowired
-	private GeneroRepository generoRepository;
+	private GeneroService generoService;
 	
-	@RequestMapping("/novo")
+	@RequestMapping(NOVO)
 	public ModelAndView novo() {
 		ModelAndView modelAndView = new ModelAndView(GENERO_CADASTRO);
 		modelAndView.addObject(new Genero());
@@ -41,35 +43,33 @@ public class GeneroController {
 		}
 		
 		if(genero.getId() == null) {
-			generoRepository.save(genero);
+			generoService.incluir(genero);
 			redirectAttributes.addFlashAttribute("mensagem","Inclusão realizada com sucesso!");
 		}else {
-			generoRepository.save(genero);
+			generoService.editar(genero);
 			redirectAttributes.addFlashAttribute("mensagem","Alteração realizada com sucesso!");
 		}
-		return new ModelAndView("redirect:/generos/novo");
+		return new ModelAndView(REDIRECT+GENEROS+NOVO);
 	}
 	
 	@GetMapping
 	public ModelAndView lista() {
 		ModelAndView modelAndView = new ModelAndView(GENERO_LISTA);
-		modelAndView.addObject("generos",generoRepository.findAll());
+		modelAndView.addObject(GENEROS,generoService.listar());
 		return modelAndView;
 	}
 	
 	@GetMapping("/editar/{id}")
 	public ModelAndView editar(@PathVariable("id") Long id) {
 		ModelAndView modelAndView = new ModelAndView(GENERO_CADASTRO);
-		modelAndView.addObject(generoRepository.findById(id).orElseThrow(()-> new EmptyResultDataAccessException(0)));
+		modelAndView.addObject(generoService.pesquisarPorId(id));
 		return modelAndView;
 	}
 	
 	@GetMapping("/excluir/{id}")
 	public ModelAndView excluir(@PathVariable("id") Long id) {
-		ModelAndView modelAndView = new ModelAndView("redirect:/generos");
-		
-		generoRepository.deleteById(id);
-		
+		ModelAndView modelAndView = new ModelAndView(REDIRECT+GENEROS);
+		generoService.excluir(id);
 		return modelAndView;
 	}
 }
